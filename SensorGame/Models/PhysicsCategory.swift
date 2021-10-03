@@ -7,7 +7,10 @@
 
 import Foundation
 
-// An enum to predefine SKPhysicsBody properties to configure and detect collisions between objects
+/*
+ An enum to predefine SKPhysicsBody properties to configure different objects with separate categories that have the same behaviours.
+ This is also used to configure and detect the categories of the bodies that collide or contact each other.
+ */
 
 enum PhysicsCategory: UInt32 {
   

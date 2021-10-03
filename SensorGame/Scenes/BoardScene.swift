@@ -6,39 +6,40 @@
 //
 
 import SpriteKit
-import os.log
+/*
+ The main SpriteKitScene that holds the SpriteKitNodes
+ */
 
-class BoardScene: SKScene {
+final class BoardScene: SKScene {
   
   //MARK: Variables
   
   // Constants used to setup the positions of the views
-  let woodFrameWidth = CGFloat(20)
-  let innerTileWidth = CGFloat(10)
-  let holeNodeRadius = CGFloat(15)
-  let ballNodeRadius = CGFloat(10)
-  let finishNodeRadius = CGFloat(15)
+ private let woodFrameWidth = CGFloat(20)
+ private let innerTileWidth = CGFloat(10)
+ private let holeNodeRadius = CGFloat(15)
+ private let ballNodeRadius = CGFloat(10)
+ private let finishNodeRadius = CGFloat(15)
   
-  var gameState: GameStates = .initial {
+  
+ private var gameState: GameState = .initial {
     willSet {
-      switch newValue {
-      case .initial:
-        break
-      case .inProgress:
-        // just to track the state
-        break
-      case .lost:
-        // present other screen
-        break
-      case .won:
-        // present other screen
-        break
-      }
+      showFinishedGameScene(state: newValue)
     }
   }
   
-  
-
+  private lazy var  ballNode: SKShapeNode = {
+    let ballNode = SKShapeNode(circleOfRadius: ballNodeRadius)
+    ballNode.name = "ball"
+    ballNode.fillColor = .gray
+    ballNode.strokeColor = .lightGray
+    ballNode.physicsBody = SKPhysicsBody(circleOfRadius: ballNodeRadius)
+    ballNode.physicsBody?.affectedByGravity = false
+    ballNode.physicsBody?.categoryBitMask = PhysicsCategory.ball.rawValue
+    ballNode.physicsBody?.collisionBitMask = PhysicsCategory.woodTile.rawValue
+    ballNode.physicsBody?.contactTestBitMask = PhysicsCategory.hole.rawValue | PhysicsCategory.finish.rawValue
+    return ballNode
+  }()
   
   
   //MARK: Lifecycle methods
@@ -49,8 +50,6 @@ class BoardScene: SKScene {
     setupNodes()
     gameState = .initial
   }
-  
-  var ballNode: SKShapeNode!
   
   //MARK: Helper functions
   
@@ -86,17 +85,6 @@ class BoardScene: SKScene {
     addChild(thirdInnerTile)
     
     
-    ballNode = SKShapeNode(circleOfRadius: ballNodeRadius)
-    ballNode.name = "ball"
-    ballNode.fillColor = .gray
-    ballNode.strokeColor = .lightGray
-    ballNode.physicsBody = SKPhysicsBody(circleOfRadius: ballNodeRadius)
-//    ballNode.physicsBody?.isDynamic = false
-    ballNode.physicsBody?.affectedByGravity = false
-    ballNode.physicsBody?.categoryBitMask = PhysicsCategory.ball.rawValue
-    //collision prevents two objects from crossing each other
-    ballNode.physicsBody?.collisionBitMask = PhysicsCategory.woodTile.rawValue
-    ballNode.physicsBody?.contactTestBitMask = PhysicsCategory.hole.rawValue | PhysicsCategory.finish.rawValue
     ballNode.position = CGPoint(x: bottomTile.frame.maxX - (woodFrameWidth + (ballNode.frame.width / 2)) , y: bottomTile.frame.maxY + (ballNode.frame.width / 2))
     addChild(ballNode)
     
@@ -106,11 +94,8 @@ class BoardScene: SKScene {
     finishNode.fillColor = .blue
     finishNode.strokeColor = .lightGray
     finishNode.physicsBody = SKPhysicsBody(circleOfRadius: finishNodeRadius)
-//    finishNode.physicsBody?.isResting = true
     finishNode.physicsBody?.isDynamic = false
-//    finishNode.physicsBody?.affectedByGravity = false
     finishNode.physicsBody?.categoryBitMask = PhysicsCategory.finish.rawValue
-//    finishNode.physicsBody?.collisionBitMask = PhysicsCategory.ball.rawValue
     finishNode.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
     finishNode.position = CGPoint(x: bottomTile.frame.minX + (woodFrameWidth + (finishNode.frame.width / 2)), y: bottomTile.frame.maxY + (finishNode.frame.width / 2))
     addChild(finishNode)
@@ -163,12 +148,9 @@ class BoardScene: SKScene {
     node.fillColor = .brown
     node.strokeColor = .lightGray
     node.physicsBody = SKPhysicsBody(rectangleOf: size)
-//    node.physicsBody?.isResting = true
     node.physicsBody?.isDynamic = false
-//    node.physicsBody?.affectedByGravity = false
     node.physicsBody?.categoryBitMask = PhysicsCategory.woodTile.rawValue
     node.physicsBody?.collisionBitMask = PhysicsCategory.ball.rawValue
-//    node.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
     return node
   }
   
@@ -178,15 +160,29 @@ class BoardScene: SKScene {
     node.fillColor = .black
     node.strokeColor = .lightGray
     node.physicsBody = SKPhysicsBody(circleOfRadius: holeNodeRadius)
-//    node.physicsBody?.isResting = true
     node.physicsBody?.isDynamic = false
-//    node.physicsBody?.affectedByGravity = false
     node.physicsBody?.categoryBitMask = PhysicsCategory.hole.rawValue
-//    node.physicsBody?.collisionBitMask = PhysicsCategory.ball.rawValue
     node.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
     return node
   }
   
+  
+  private func showFinishedGameScene(state: GameState) {
+    var finishedGameScene: FinishedGameScene? = nil
+    switch state {
+    case .initial:
+      break
+    case .lost:
+      finishedGameScene = FinishedGameScene(size: size, message: state.description)
+    case .won:
+      finishedGameScene = FinishedGameScene(size: size, message: state.description)
+    }
+    guard let finishScene = finishedGameScene else { return }
+    
+    finishScene.scaleMode = .aspectFill
+    let transition = SKTransition.moveIn(with: .down, duration: 0.8)
+    self.view?.presentScene(finishScene, transition: transition)
+  }
 }
 
 
@@ -202,17 +198,6 @@ extension BoardScene {
     }
   }
   
-  
-  
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    
-  }
-  
-  
-  override func update(_ currentTime: TimeInterval) {
-    
-  }
-
 }
 
 // MARK: Contact delegate
@@ -222,33 +207,23 @@ extension BoardScene: SKPhysicsContactDelegate {
     guard let nodeA = contact.bodyA.node else { return }
     guard let nodeB = contact.bodyB.node else { return }
     
-    
-    
-    // collision possibilities
-    
-    // ball -> tile
-    // ball -> hole
-    // ball -> finish
+    /*
+     Collision possibilities
+     ball -> hole
+     ball -> finish
+     */
     
     if nodeA.name == "ball" {
       
       if nodeB.name == "hole" {
-        // game lost
+        //  ball contacted hole -> game lost
         gameState =  .lost
-      } else if nodeB.name == "woodTile" {
-        // game continues
-        gameState = .inProgress
       } else if nodeB.name == "finish" {
-        // game won
+        // ball contacted finish -> game won
         gameState = .won
       }
-    } else {
-      
     }
     
   }
   
-  func didEnd(_ contact: SKPhysicsContact) {
-    
-  }
 }
