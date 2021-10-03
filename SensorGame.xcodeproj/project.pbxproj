@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2861DB602709C6DA00EB390A /* FinishedGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2861DB5F2709C6DA00EB390A /* FinishedGameScene.swift */; };
+		2861DB62270A08BE00EB390A /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2861DB61270A08BE00EB390A /* BoardView.swift */; };
 		287AD0292707D9A80080AA5D /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AD0282707D9A80080AA5D /* GameState.swift */; };
 		287AD02B2707DA0F0080AA5D /* BallMovement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AD02A2707DA0F0080AA5D /* BallMovement.swift */; };
 		287AD02D2707DAB20080AA5D /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AD02C2707DAB20080AA5D /* PhysicsCategory.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		2861DB5F2709C6DA00EB390A /* FinishedGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedGameScene.swift; sourceTree = "<group>"; };
+		2861DB61270A08BE00EB390A /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		287AD0282707D9A80080AA5D /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		287AD02A2707DA0F0080AA5D /* BallMovement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallMovement.swift; sourceTree = "<group>"; };
 		287AD02C2707DAB20080AA5D /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				28A10A562707A06A006C0103 /* BoardScene.swift */,
 				2861DB5F2709C6DA00EB390A /* FinishedGameScene.swift */,
+				2861DB61270A08BE00EB390A /* BoardView.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				287AD02D2707DAB20080AA5D /* PhysicsCategory.swift in Sources */,
 				2861DB602709C6DA00EB390A /* FinishedGameScene.swift in Sources */,
 				28A10A592707A06A006C0103 /* GameViewController.swift in Sources */,
+				2861DB62270A08BE00EB390A /* BoardView.swift in Sources */,
 				287AD02B2707DA0F0080AA5D /* BallMovement.swift in Sources */,
 				28A10A512707A06A006C0103 /* AppDelegate.swift in Sources */,
 			);
