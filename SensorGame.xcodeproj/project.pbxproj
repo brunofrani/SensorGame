@@ -21,6 +21,7 @@
 		28A10A6B2707A06F006C0103 /* SensorGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A6A2707A06F006C0103 /* SensorGameTests.swift */; };
 		28A10A752707A06F006C0103 /* SensorGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A742707A06F006C0103 /* SensorGameUITests.swift */; };
 		28A10A772707A06F006C0103 /* SensorGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A762707A06F006C0103 /* SensorGameUITestsLaunchTests.swift */; };
+		28A80B48270A55BB00CA6EE4 /* MotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A80B47270A55BB00CA6EE4 /* MotionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		28A10A702707A06F006C0103 /* SensorGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SensorGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A10A742707A06F006C0103 /* SensorGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGameUITests.swift; sourceTree = "<group>"; };
 		28A10A762707A06F006C0103 /* SensorGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		28A80B47270A55BB00CA6EE4 /* MotionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionService.swift; sourceTree = "<group>"; };
+		28A80B49270A5AE500CA6EE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2861DB63270A126100EB390A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				28A80B47270A55BB00CA6EE4 /* MotionService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		287AD0272707D9880080AA5D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,9 +129,11 @@
 		28A10A4F2707A06A006C0103 /* SensorGame */ = {
 			isa = PBXGroup;
 			children = (
+				28A80B49270A5AE500CA6EE4 /* Info.plist */,
 				28A10A872707A20B006C0103 /* Template */,
 				287AD0272707D9880080AA5D /* Models */,
 				28A10A862707A200006C0103 /* Scenes */,
+				2861DB63270A126100EB390A /* Services */,
 			);
 			path = SensorGame;
 			sourceTree = "<group>";
@@ -300,6 +313,7 @@
 				287AD02D2707DAB20080AA5D /* PhysicsCategory.swift in Sources */,
 				2861DB602709C6DA00EB390A /* FinishedGameScene.swift in Sources */,
 				28A10A592707A06A006C0103 /* GameViewController.swift in Sources */,
+				28A80B48270A55BB00CA6EE4 /* MotionService.swift in Sources */,
 				2861DB62270A08BE00EB390A /* BoardView.swift in Sources */,
 				287AD02B2707DA0F0080AA5D /* BallMovement.swift in Sources */,
 				28A10A512707A06A006C0103 /* AppDelegate.swift in Sources */,
@@ -483,12 +497,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 96KLZZ8D6T;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SensorGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "gyroscope accelerometer";
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -511,12 +528,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 96KLZZ8D6T;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SensorGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "gyroscope accelerometer";
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

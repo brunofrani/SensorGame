@@ -7,7 +7,6 @@
 
 import UIKit
 import SpriteKit
-import GameplayKit
 
 
 /*
@@ -16,9 +15,15 @@ import GameplayKit
  */
 class GameViewController: UIViewController {
   
+  //Create a the instance of motionService here as this is the parent ViewController of the scenes and lives as long as the app is active.
+  private lazy var motionService: MotionService = {
+    return MotionService()
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    motionService.startGyros()
     if let view = self.view as! SKView? {
       // Load the SKScene from 'GameScene.sks'
       let scene = BoardScene(size: view.bounds.size)

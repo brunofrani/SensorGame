@@ -12,7 +12,6 @@ import SpriteKit
 
 final class BoardView {
   
-  
   private let woodFrameWidth = CGFloat(20)
   private let innerTileWidth = CGFloat(10)
   private let holeNodeRadius = CGFloat(15)

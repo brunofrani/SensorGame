@@ -23,7 +23,6 @@ final class BoardScene: SKScene {
    return BoardView(scene: self)
   }()
   
-  
   //MARK: Lifecycle methods
   override func didMove(to view: SKView) {
     physicsWorld.gravity = .zero
@@ -62,7 +61,6 @@ final class BoardScene: SKScene {
   }
 
 }
-
 
 
 // MARK: Contact delegate
