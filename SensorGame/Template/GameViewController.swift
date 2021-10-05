@@ -23,7 +23,7 @@ class GameViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    motionService.startGyros()
+    motionService.startMotionUpdates()
     if let view = self.view as! SKView? {
       // Load the SKScene from 'GameScene.sks'
       let scene = BoardScene(size: view.bounds.size)
