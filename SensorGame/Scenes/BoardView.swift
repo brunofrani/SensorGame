@@ -6,10 +6,8 @@
 //
 
 import SpriteKit
-/*
- The view is done programatically and it has a lot of configuration code so it is defined in a separate file
- */
 
+/// The view is done programatically and it has a lot of configuration code so it is defined in a separate file
 final class BoardView {
   
   private let woodFrameWidth = CGFloat(20)
@@ -24,7 +22,7 @@ final class BoardView {
     ballNode.fillColor = .gray
     ballNode.strokeColor = .lightGray
     ballNode.physicsBody = SKPhysicsBody(circleOfRadius: ballNodeRadius)
-    ballNode.physicsBody?.restitution = 0.5
+    ballNode.physicsBody?.restitution = 0.1
     ballNode.physicsBody?.affectedByGravity = false
     ballNode.physicsBody?.categoryBitMask = PhysicsCategory.ball.rawValue
     ballNode.physicsBody?.collisionBitMask = PhysicsCategory.woodTile.rawValue
@@ -72,21 +70,6 @@ final class BoardView {
     scene.addChild(thirdInnerTile)
     
     
-    ballNode.position = CGPoint(x: bottomTile.frame.maxX - (woodFrameWidth + (ballNode.frame.width / 2)) , y: bottomTile.frame.maxY + (ballNode.frame.width / 2))
-    scene.addChild(ballNode)
-    
-    
-    let finishNode = SKShapeNode(circleOfRadius: finishNodeRadius)
-    finishNode.name = "finish"
-    finishNode.fillColor = .blue
-    finishNode.strokeColor = .lightGray
-    finishNode.physicsBody = SKPhysicsBody(circleOfRadius: finishNodeRadius)
-    finishNode.physicsBody?.isDynamic = false
-    finishNode.physicsBody?.categoryBitMask = PhysicsCategory.finish.rawValue
-    finishNode.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
-    finishNode.position = CGPoint(x: bottomTile.frame.minX + (woodFrameWidth + (finishNode.frame.width / 2)), y: bottomTile.frame.maxY + (finishNode.frame.width / 2))
-    scene.addChild(finishNode)
-    
     let firstHole = createHoleNode()
     firstHole.position = CGPoint(x: rightTile.frame.minX - (firstHole.frame.width / 2), y: scene.frame.height * 1 / 5)
     scene.addChild(firstHole)
@@ -127,6 +110,26 @@ final class BoardView {
     tenthHole.position = CGPoint(x: thirdInnerTile.frame.minX - (ninthHole.frame.width / 2), y: scene.frame.height * 2 / 5)
     scene.addChild(tenthHole)
     
+    
+    ballNode.position = CGPoint(x: bottomTile.frame.maxX - (woodFrameWidth + (ballNode.frame.width / 2)) , y: bottomTile.frame.maxY + (ballNode.frame.width / 2))
+    scene.addChild(ballNode)
+    
+    
+    let finishNode = SKShapeNode(circleOfRadius: finishNodeRadius)
+    finishNode.name = "finish"
+    finishNode.fillColor = .blue
+    finishNode.strokeColor = .lightGray
+    finishNode.physicsBody = SKPhysicsBody(circleOfRadius: finishNodeRadius - ballNodeRadius)
+    finishNode.physicsBody?.isDynamic = false
+    finishNode.physicsBody?.categoryBitMask = PhysicsCategory.finish.rawValue
+    finishNode.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
+    finishNode.position = CGPoint(x: bottomTile.frame.minX + (woodFrameWidth + (finishNode.frame.width / 2)), y: bottomTile.frame.maxY + (finishNode.frame.width / 2))
+    scene.addChild(finishNode)
+    
+    let edgeSprite = SKShapeNode(rect: scene.frame)
+    edgeSprite.physicsBody = SKPhysicsBody(edgeLoopFrom: scene.frame)
+    scene.addChild(edgeSprite)
+    
   }
   
   private func createWoodTileNode(size: CGSize) -> SKShapeNode {
@@ -147,7 +150,7 @@ final class BoardView {
     node.fillColor = .black
     node.strokeColor = .lightGray
     // Make the physical body smaller so we can simulate te case when the ball touches the hole but it doesn't falls inside.
-    node.physicsBody = SKPhysicsBody(circleOfRadius: holeNodeRadius - (ballNodeRadius))
+    node.physicsBody = SKPhysicsBody(circleOfRadius: holeNodeRadius - ballNodeRadius)
     node.physicsBody?.isDynamic = false
     node.physicsBody?.categoryBitMask = PhysicsCategory.hole.rawValue
     node.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue

@@ -6,21 +6,21 @@
 //
 
 import SpriteKit
-/*
- The main SpriteKitScene that holds the actions and delegates
- */
+import CoreMotion
 
+///  The main SpriteKitScene that holds the actions and delegates
 final class BoardScene: SKScene {
   
   //MARK: Variables
- private var gameState: GameState = .initial {
+  private var isFirstRun = true
+  private var gameState: GameState = .initial {
     willSet {
       showFinishedGameScene(state: newValue)
     }
   }
   
   private lazy var boardView: BoardView = {
-   return BoardView(scene: self)
+    return BoardView(scene: self)
   }()
   
   //MARK: Lifecycle methods
@@ -30,6 +30,20 @@ final class BoardScene: SKScene {
     backgroundColor = .white
     gameState = .initial
     boardView.setupNodes()
+    
+    do {
+      try CoreMotionWrapper.singleton.startMotionUpdates { [weak self] motionData in
+        guard let strongSelf = self else { return }
+        strongSelf.boardView.ballNode.physicsBody?.applyForce(
+          CGVector(
+            dx: motionData.dx * 10 * motionData.speedMultiplier,
+            dy: motionData.dy * 10 * motionData.speedMultiplier))
+      }
+    } catch {
+      // In case of an error end the game right away
+      gameState = .lost(message: "An error occoured with motion service")
+      
+    }
   }
   
   private func showFinishedGameScene(state: GameState) {
@@ -39,6 +53,7 @@ final class BoardScene: SKScene {
       break
     case .lost:
       finishedGameScene = FinishedGameScene(size: size, message: state.description)
+      CoreMotionWrapper.singleton.stopMotionUpdates()
     case .won:
       finishedGameScene = FinishedGameScene(size: size, message: state.description)
     }
@@ -47,19 +62,7 @@ final class BoardScene: SKScene {
     finishScene.scaleMode = .aspectFill
     let transition = SKTransition.moveIn(with: .down, duration: 0.8)
     self.view?.presentScene(finishScene, transition: transition)
-  }
-  
-  // MARK: Action
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    for touch in touches {
-      let touchLocation = touch.location(in: self)
-      
-      let movementVector = CGVector(dx: touchLocation.x - boardView.ballNode.position.x, dy: touchLocation.y - boardView.ballNode.position.y)
-      let move = SKAction.move(by: movementVector, duration: 0.5)
-      boardView.ballNode.run(move)
-    }
-  }
-
+  }  
 }
 
 
@@ -79,8 +82,16 @@ extension BoardScene: SKPhysicsContactDelegate {
     if nodeA.name == "ball" {
       if nodeB.name == "hole" {
         //  ball contacted hole -> game lost
-        gameState =  .lost
+        gameState =  .lost(message: "You lost")
       } else if nodeB.name == "finish" {
+        // ball contacted finish -> game won
+        gameState = .won
+      }
+    } else if nodeB.name == "ball" {
+      if nodeA.name == "hole" {
+        //ball contacted hole -> game lost
+        gameState = .lost(message: "You lost")
+      } else if nodeA.name == "finish" {
         // ball contacted finish -> game won
         gameState = .won
       }

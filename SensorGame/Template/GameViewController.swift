@@ -8,22 +8,13 @@
 import UIKit
 import SpriteKit
 
-
-/*
- The initial ViewController of the game
- It is responsible for instatiating the first SpriteKitScene
- */
+///  The initial ViewController of the game
+It is responsible for instatiating the first SpriteKitScene
 class GameViewController: UIViewController {
-  
-  //Create a the instance of motionService here as this is the parent ViewController of the scenes and lives as long as the app is active.
-  private lazy var motionService: MotionService = {
-    return MotionService()
-  }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    motionService.startMotionUpdates()
+
     if let view = self.view as! SKView? {
       // Load the SKScene from 'GameScene.sks'
       let scene = BoardScene(size: view.bounds.size)
@@ -33,9 +24,9 @@ class GameViewController: UIViewController {
       
       view.ignoresSiblingOrder = true
       // Attributes shown in scenes for debug purposes
-      view.showsFPS = true
-      view.showsNodeCount = true
-      view.showsPhysics = true
+//      view.showsFPS = true
+//      view.showsNodeCount = true
+//      view.showsPhysics = true
     }
   }
   

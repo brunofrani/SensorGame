@@ -7,21 +7,18 @@
 
 import Foundation
 
-/*
- The states of the game where we need to take actions
- */
-
+///  The states of the game where we need to take actions
 enum GameState {
   case initial
-  case lost
+  case lost(message: String)
   case won
   
   var description : String {
     switch self {
     case .initial:
       return ""
-    case .lost:
-      return "You lost the game. Try Again "
+    case .lost(let message):
+      return "\(message). Try Again "
     case .won:
       return "Congratulations, you won"
     }

@@ -7,48 +7,40 @@
 
 import CoreMotion
 
-final class MotionService {
+/// A protocol that describes the API of the CoreMotionWrapper
+protocol MotionService {
+  func startMotionUpdates(handler: @escaping (BallMovementVector) -> Void) throws
+  func stopMotionUpdates()
+}
+
+/// The wrapper of the CMMotionManager
+final class CoreMotionWrapper: MotionService {
   
-  var timer: Timer? = nil
+  static let singleton = CoreMotionWrapper()
   // No permission is required for accelerometer, magnetometer and gyroscope.
   private let motionManager = CMMotionManager()
+  private let motionUpdateInterval = 1.0 / 60.0  // 60 Hz
   
-  private  var currentGyroData = ThreeAxisData(xValue: 0.0, yValue: 0.0, zValue: 0.0)
-  private  var currentAccelerometerData = ThreeAxisData(xValue: 0.0, yValue: 0.0, zValue: 0.0)
-  
-  
-  func diff(newData: inout ThreeAxisData, oldData: ThreeAxisData) -> ThreeAxisData {
-    return newData - oldData
-  }
-  
-  func startMotionUpdates() {
+  func startMotionUpdates(handler: @escaping (BallMovementVector) -> Void) throws {
     
-    if self.motionManager.isDeviceMotionAvailable {
-      self.motionManager.deviceMotionUpdateInterval = 1.0 / 10.0  // 10 Hz
-      
-      let queue = OperationQueue()
-      queue.name = "MotionManagerQueue"
-      queue.maxConcurrentOperationCount = 1
+    let queue = OperationQueue()
+    queue.name = "MotionManagerQueue"
+    queue.maxConcurrentOperationCount = 1
+    queue.qualityOfService = .userInteractive
+    
+    // The motion.gravity attribute is a fusion of accelerometer and gyroscope so it is more accurate.
+    if motionManager.isDeviceMotionAvailable {
+      motionManager.deviceMotionUpdateInterval = motionUpdateInterval
       motionManager.startDeviceMotionUpdates(to: queue) { (motion, error) in
-        // Handle device motion updates
-        guard let motion = motion else { return }
-        // Get accelerometer sensor data
-        var accelerationtData = ThreeAxisData(xValue: motion.userAcceleration.x, yValue: motion.userAcceleration.y, zValue: motion.userAcceleration.z)
+        guard let motion = motion, error == nil else { return }
         
-        
-        // Get gyroscope sensor data
-        var gyroData = ThreeAxisData(xValue: motion.rotationRate.x, yValue: motion.rotationRate.y, zValue: motion.rotationRate.z)
-        
-        print(gyroData)
-        
-        // Get magnetometer sensor data
-        motion.magneticField.accuracy
-        motion.magneticField.field.x
-        motion.magneticField.field.y
-        motion.magneticField.field.z
-        
+        let multiplier = 1 / fabs(motion.gravity.z)
+        let ballMovementVector = BallMovementVector(dx: motion.gravity.x , dy: motion.gravity.y, speedMultiplier: multiplier)
+        handler(ballMovementVector)
         
       }
+    } else {
+      throw MotionServiceError.motionServiceUnavailable
     }
   }
   

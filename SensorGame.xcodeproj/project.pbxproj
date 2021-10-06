@@ -12,7 +12,7 @@
 		287AD0292707D9A80080AA5D /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AD0282707D9A80080AA5D /* GameState.swift */; };
 		287AD02B2707DA0F0080AA5D /* BallMovementVector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AD02A2707DA0F0080AA5D /* BallMovementVector.swift */; };
 		287AD02D2707DAB20080AA5D /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AD02C2707DAB20080AA5D /* PhysicsCategory.swift */; };
-		2896263B270BA8E100B1339F /* ThreeAxisData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2896263A270BA8E100B1339F /* ThreeAxisData.swift */; };
+		288C2EAF270DDB350011ECC1 /* MotionServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288C2EAE270DDB350011ECC1 /* MotionServiceError.swift */; };
 		28A10A512707A06A006C0103 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A502707A06A006C0103 /* AppDelegate.swift */; };
 		28A10A572707A06A006C0103 /* BoardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A562707A06A006C0103 /* BoardScene.swift */; };
 		28A10A592707A06A006C0103 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A582707A06A006C0103 /* GameViewController.swift */; };
@@ -48,7 +48,7 @@
 		287AD0282707D9A80080AA5D /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		287AD02A2707DA0F0080AA5D /* BallMovementVector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallMovementVector.swift; sourceTree = "<group>"; };
 		287AD02C2707DAB20080AA5D /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
-		2896263A270BA8E100B1339F /* ThreeAxisData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeAxisData.swift; sourceTree = "<group>"; };
+		288C2EAE270DDB350011ECC1 /* MotionServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionServiceError.swift; sourceTree = "<group>"; };
 		28A10A4D2707A06A006C0103 /* SensorGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SensorGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A10A502707A06A006C0103 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "../New Group1/AppDelegate.swift"; sourceTree = "<group>"; };
 		28A10A562707A06A006C0103 /* BoardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardScene.swift; sourceTree = "<group>"; };
@@ -94,8 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				28A80B47270A55BB00CA6EE4 /* MotionService.swift */,
-				2896263A270BA8E100B1339F /* ThreeAxisData.swift */,
 				287AD02A2707DA0F0080AA5D /* BallMovementVector.swift */,
+				288C2EAE270DDB350011ECC1 /* MotionServiceError.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -312,7 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28A10A572707A06A006C0103 /* BoardScene.swift in Sources */,
-				2896263B270BA8E100B1339F /* ThreeAxisData.swift in Sources */,
+				288C2EAF270DDB350011ECC1 /* MotionServiceError.swift in Sources */,
 				287AD0292707D9A80080AA5D /* GameState.swift in Sources */,
 				287AD02D2707DAB20080AA5D /* PhysicsCategory.swift in Sources */,
 				2861DB602709C6DA00EB390A /* FinishedGameScene.swift in Sources */,

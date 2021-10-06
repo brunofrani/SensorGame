@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-// Describes the data nedeed to move in a 2-dimensional space
-
+/// Describes the data nedeed to move in a 2-dimensional space
 struct BallMovementVector  {
   var dx: Double
   var dy: Double
+  var speedMultiplier: Double
 }
