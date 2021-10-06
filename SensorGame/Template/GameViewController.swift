@@ -8,8 +8,11 @@
 import UIKit
 import SpriteKit
 
-///  The initial ViewController of the game
-It is responsible for instatiating the first SpriteKitScene
+
+/*
+ The initial ViewController of the game
+ It is responsible for instatiating the first SpriteKitScene
+ */
 class GameViewController: UIViewController {
   
   override func viewDidLoad() {

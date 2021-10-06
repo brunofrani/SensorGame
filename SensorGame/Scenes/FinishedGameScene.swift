@@ -7,8 +7,8 @@
 
 import SpriteKit
 
-///  This class displays a label with the status of the game after is finished.
-Also it initializes a new BoardScene when the user taps on the scene.
+/// This class displays a label with the status of the game after is finished.
+/// Also it initializes a new BoardScene when the user taps on the scene.
 final class FinishedGameScene: SKScene {
 
   private let gameStatusMessage: String
