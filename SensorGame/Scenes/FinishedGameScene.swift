@@ -10,27 +10,25 @@ import SpriteKit
 /// This class displays a label with the status of the game after is finished.
 /// Also it initializes a new BoardScene when the user taps on the scene.
 final class FinishedGameScene: SKScene {
-
-  private let gameStatusMessage: String
   
-  private lazy var gameStatusLabel: SKLabelNode = {
-    let node = SKLabelNode(text: gameStatusMessage)
+  let gameState: GameState
+  
+  private (set) lazy var gameStatusLabel: SKLabelNode = {
+    let node = SKLabelNode(text: gameState.description)
     node.numberOfLines = 0
-    node.text = gameStatusMessage
     node.fontSize = 20
     node.fontColor = .white
     return node
   }()
   
-  init(size: CGSize, message: String) {
-    self.gameStatusMessage = message
+  init(size: CGSize, state: GameState) {
+    self.gameState = state
     super.init(size: size)
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
   
   override func didMove(to view: SKView) {
     gameStatusLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)

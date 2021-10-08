@@ -19,10 +19,13 @@
 		28A10A5C2707A06A006C0103 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A10A5A2707A06A006C0103 /* Main.storyboard */; };
 		28A10A5E2707A06F006C0103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28A10A5D2707A06F006C0103 /* Assets.xcassets */; };
 		28A10A612707A06F006C0103 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28A10A5F2707A06F006C0103 /* LaunchScreen.storyboard */; };
-		28A10A6B2707A06F006C0103 /* SensorGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A6A2707A06F006C0103 /* SensorGameTests.swift */; };
+		28A10A6B2707A06F006C0103 /* BoardViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A6A2707A06F006C0103 /* BoardViewTests.swift */; };
 		28A10A752707A06F006C0103 /* SensorGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A742707A06F006C0103 /* SensorGameUITests.swift */; };
 		28A10A772707A06F006C0103 /* SensorGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A10A762707A06F006C0103 /* SensorGameUITestsLaunchTests.swift */; };
 		28A80B48270A55BB00CA6EE4 /* MotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A80B47270A55BB00CA6EE4 /* MotionService.swift */; };
+		28C3997D270FAF3D008194A4 /* MotionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C3997C270FAF3D008194A4 /* MotionServiceTests.swift */; };
+		28C3997F270FC799008194A4 /* FinishGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C3997E270FC799008194A4 /* FinishGameTests.swift */; };
+		28C39981270FCC65008194A4 /* BoardSceneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C39980270FCC65008194A4 /* BoardSceneTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,12 +60,15 @@
 		28A10A5D2707A06F006C0103 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		28A10A602707A06F006C0103 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		28A10A662707A06F006C0103 /* SensorGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SensorGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		28A10A6A2707A06F006C0103 /* SensorGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGameTests.swift; sourceTree = "<group>"; };
+		28A10A6A2707A06F006C0103 /* BoardViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewTests.swift; sourceTree = "<group>"; };
 		28A10A702707A06F006C0103 /* SensorGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SensorGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28A10A742707A06F006C0103 /* SensorGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGameUITests.swift; sourceTree = "<group>"; };
 		28A10A762707A06F006C0103 /* SensorGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		28A80B47270A55BB00CA6EE4 /* MotionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionService.swift; sourceTree = "<group>"; };
 		28A80B49270A5AE500CA6EE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		28C3997C270FAF3D008194A4 /* MotionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionServiceTests.swift; sourceTree = "<group>"; };
+		28C3997E270FC799008194A4 /* FinishGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishGameTests.swift; sourceTree = "<group>"; };
+		28C39980270FCC65008194A4 /* BoardSceneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSceneTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +150,10 @@
 		28A10A692707A06F006C0103 /* SensorGameTests */ = {
 			isa = PBXGroup;
 			children = (
-				28A10A6A2707A06F006C0103 /* SensorGameTests.swift */,
+				28A10A6A2707A06F006C0103 /* BoardViewTests.swift */,
+				28C3997C270FAF3D008194A4 /* MotionServiceTests.swift */,
+				28C3997E270FC799008194A4 /* FinishGameTests.swift */,
+				28C39980270FCC65008194A4 /* BoardSceneTests.swift */,
 			);
 			path = SensorGameTests;
 			sourceTree = "<group>";
@@ -328,7 +337,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28A10A6B2707A06F006C0103 /* SensorGameTests.swift in Sources */,
+				28A10A6B2707A06F006C0103 /* BoardViewTests.swift in Sources */,
+				28C39981270FCC65008194A4 /* BoardSceneTests.swift in Sources */,
+				28C3997F270FC799008194A4 /* FinishGameTests.swift in Sources */,
+				28C3997D270FAF3D008194A4 /* MotionServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

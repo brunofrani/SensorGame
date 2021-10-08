@@ -11,17 +11,25 @@ import CoreMotion
 ///  The main SpriteKitScene that holds the actions and delegates
 final class BoardScene: SKScene {
   
-  //MARK: Variables
-  private var isFirstRun = true
-  private var gameState: GameState = .initial {
-    willSet {
-      showFinishedGameScene(state: newValue)
-    }
+  private (set) var boardView: BoardView?
+  
+  override init(size: CGSize) {
+    super.init(size: size)
+    boardView = BoardView(scene: self)
+    boardView?.setupNodes()
+    
   }
   
-  private lazy var boardView: BoardView = {
-    return BoardView(scene: self)
-  }()
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  //MARK: Variables
+  var gameState: GameState = .initial {
+    willSet {
+      finishGame(with: newValue)
+    }
+  }
   
   //MARK: Lifecycle methods
   override func didMove(to view: SKView) {
@@ -29,15 +37,14 @@ final class BoardScene: SKScene {
     physicsWorld.contactDelegate = self
     backgroundColor = .white
     gameState = .initial
-    boardView.setupNodes()
     
     do {
       try CoreMotionWrapper.singleton.startMotionUpdates { [weak self] motionData in
         guard let strongSelf = self else { return }
-        strongSelf.boardView.ballNode.physicsBody?.applyForce(
+        strongSelf.boardView?.ballNode.physicsBody?.applyForce(
           CGVector(
-            dx: motionData.dx * 10 * motionData.speedMultiplier,
-            dy: motionData.dy * 10 * motionData.speedMultiplier))
+            dx: motionData.dx * 8 ,
+            dy: motionData.dy * 8 ))
       }
     } catch {
       // In case of an error end the game right away
@@ -46,16 +53,16 @@ final class BoardScene: SKScene {
     }
   }
   
-  private func showFinishedGameScene(state: GameState) {
+  private func finishGame(with state: GameState) {
     var finishedGameScene: FinishedGameScene? = nil
-    switch state {
+    switch  state {
     case .initial:
       break
     case .lost:
-      finishedGameScene = FinishedGameScene(size: size, message: state.description)
+      finishedGameScene = FinishedGameScene(size: size, state: state)
       CoreMotionWrapper.singleton.stopMotionUpdates()
     case .won:
-      finishedGameScene = FinishedGameScene(size: size, message: state.description)
+      finishedGameScene = FinishedGameScene(size: size, state: state)
     }
     guard let finishScene = finishedGameScene else { return }
     

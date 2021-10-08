@@ -10,11 +10,12 @@ import SpriteKit
 /// The view is done programatically and it has a lot of configuration code so it is defined in a separate file
 final class BoardView {
   
-  private let woodFrameWidth = CGFloat(20)
-  private let innerTileWidth = CGFloat(10)
-  private let holeNodeRadius = CGFloat(15)
-  private let ballNodeRadius = CGFloat(10)
-  private let finishNodeRadius = CGFloat(15)
+  let scene: SKScene
+  let woodFrameWidth = CGFloat(20)
+  let innerTileWidth = CGFloat(10)
+  let holeNodeRadius = CGFloat(15)
+  let ballNodeRadius = CGFloat(10)
+  let finishNodeRadius = CGFloat(15)
   
   lazy var  ballNode: SKShapeNode = {
     let ballNode = SKShapeNode(circleOfRadius: ballNodeRadius)
@@ -23,6 +24,7 @@ final class BoardView {
     ballNode.strokeColor = .lightGray
     ballNode.physicsBody = SKPhysicsBody(circleOfRadius: ballNodeRadius)
     ballNode.physicsBody?.restitution = 0.1
+    ballNode.physicsBody?.friction = 0.5
     ballNode.physicsBody?.affectedByGravity = false
     ballNode.physicsBody?.categoryBitMask = PhysicsCategory.ball.rawValue
     ballNode.physicsBody?.collisionBitMask = PhysicsCategory.woodTile.rawValue
@@ -30,7 +32,17 @@ final class BoardView {
     return ballNode
   }()
   
-  private let scene: SKScene
+  lazy var finishNode: SKShapeNode = {
+    let finishNode = SKShapeNode(circleOfRadius: finishNodeRadius)
+    finishNode.name = "finish"
+    finishNode.fillColor = .blue
+    finishNode.strokeColor = .lightGray
+    finishNode.physicsBody = SKPhysicsBody(circleOfRadius: finishNodeRadius - ballNodeRadius)
+    finishNode.physicsBody?.isDynamic = false
+    finishNode.physicsBody?.categoryBitMask = PhysicsCategory.finish.rawValue
+    finishNode.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
+    return finishNode
+  }()
   
   init(scene: SKScene){
     self.scene = scene
@@ -70,7 +82,7 @@ final class BoardView {
     scene.addChild(thirdInnerTile)
     
     
-    let firstHole = createHoleNode()
+    let firstHole = createHoleNode(name: "firstHole")
     firstHole.position = CGPoint(x: rightTile.frame.minX - (firstHole.frame.width / 2), y: scene.frame.height * 1 / 5)
     scene.addChild(firstHole)
     
@@ -115,14 +127,6 @@ final class BoardView {
     scene.addChild(ballNode)
     
     
-    let finishNode = SKShapeNode(circleOfRadius: finishNodeRadius)
-    finishNode.name = "finish"
-    finishNode.fillColor = .blue
-    finishNode.strokeColor = .lightGray
-    finishNode.physicsBody = SKPhysicsBody(circleOfRadius: finishNodeRadius - ballNodeRadius)
-    finishNode.physicsBody?.isDynamic = false
-    finishNode.physicsBody?.categoryBitMask = PhysicsCategory.finish.rawValue
-    finishNode.physicsBody?.contactTestBitMask = PhysicsCategory.ball.rawValue
     finishNode.position = CGPoint(x: bottomTile.frame.minX + (woodFrameWidth + (finishNode.frame.width / 2)), y: bottomTile.frame.maxY + (finishNode.frame.width / 2))
     scene.addChild(finishNode)
     
@@ -132,7 +136,7 @@ final class BoardView {
     
   }
   
-  private func createWoodTileNode(size: CGSize) -> SKShapeNode {
+  func createWoodTileNode(size: CGSize) -> SKShapeNode {
     let node = SKShapeNode(rectOf: size)
     node.name = "woodTile"
     node.fillColor = .brown
@@ -144,9 +148,9 @@ final class BoardView {
     return node
   }
   
-  private func createHoleNode() -> SKShapeNode {
+  func createHoleNode(name: String = "hole") -> SKShapeNode {
     let node = SKShapeNode(circleOfRadius: holeNodeRadius)
-    node.name = "hole"
+    node.name = name
     node.fillColor = .black
     node.strokeColor = .lightGray
     // Make the physical body smaller so we can simulate te case when the ball touches the hole but it doesn't falls inside.

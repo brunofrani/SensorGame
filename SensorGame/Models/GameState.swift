@@ -8,7 +8,7 @@
 import Foundation
 
 ///  The states of the game where we need to take actions
-enum GameState {
+enum GameState: Equatable {
   case initial
   case lost(message: String)
   case won
