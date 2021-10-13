@@ -14,8 +14,8 @@
             filePath = "SensorGame/Scenes/BoardScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
             <Actions>
@@ -39,8 +39,8 @@
             filePath = "SensorGame/Scenes/BoardScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
             <Actions>
@@ -64,8 +64,8 @@
             filePath = "SensorGame/Scenes/BoardScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,6 +74,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "86822E05-5108-404B-ACF8-1DC0F9344255"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SensorGame/Scenes/BoardScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "didBegin(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F227E763-F7A1-4F32-AAE6-0722AC3EAEDB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -89,22 +105,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F227E763-F7A1-4F32-AAE6-0722AC3EAEDB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SensorGame/Scenes/BoardScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "didBegin(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B252BFEE-4AB8-4514-9A28-496EFACC7DD9"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -112,8 +112,8 @@
             filePath = "SensorGame/Scenes/BoardScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
             <Actions>
@@ -153,8 +153,8 @@
             filePath = "SensorGame/Scenes/BoardScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>

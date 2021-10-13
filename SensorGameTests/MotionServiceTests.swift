@@ -10,18 +10,28 @@ import XCTest
 
 class MotionServiceTests: XCTestCase {
   
-
   
-  func testCoreMotionWrapperInitialization() throws {
-    XCTAssertNoThrow(try! CoreMotionWrapper.singleton.startMotionUpdates { _ in })
+  func testCoreMotionData() {
+    
+    let expectation = XCTestExpectation(description: "get data from motion service")
+    
+    CoreMotionWrapper.singleton.startMotionUpdates(isContinuos: false, handler: { motionData in
+      XCTAssertNotNil(motionData.dx)
+      XCTAssertNotNil(motionData.dy)
+      XCTAssertLessThanOrEqual(motionData.dx, abs(1))
+      XCTAssertLessThanOrEqual(motionData.dy, abs(1))
+      expectation.fulfill()
+    })
+    
+    wait(for: [expectation], timeout: 1)
   }
   
   func testStopCoreMotionWrapper() {
     XCTAssertNoThrow(CoreMotionWrapper.singleton.stopMotionUpdates())
   }
-    
-    
-    
+  
+  
+  
   
   
 }

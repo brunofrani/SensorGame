@@ -9,7 +9,7 @@ import CoreMotion
 
 /// A protocol that describes the API of the CoreMotionWrapper
 protocol MotionService {
-  func startMotionUpdates(handler: @escaping (BallMovementVector) -> Void) throws
+  func startMotionUpdates(isContinuos:Bool, handler: @escaping (BallMovementVector) -> Void)
   func stopMotionUpdates()
 }
 
@@ -20,28 +20,25 @@ final class CoreMotionWrapper: MotionService {
   // No permission is required for accelerometer, magnetometer and gyroscope.
   private let motionManager = CMMotionManager()
   private let motionUpdateInterval = 1.0 / 60.0  // 60 Hz
+  private var timer: Timer? = nil
   
-  func startMotionUpdates(handler: @escaping (BallMovementVector) -> Void) throws {
-    
-    let queue = OperationQueue()
-    queue.name = "MotionManagerQueue"
-    queue.maxConcurrentOperationCount = 1
-    queue.qualityOfService = .userInteractive
-    
-    // The motion.gravity attribute is a fusion of accelerometer and gyroscope so it is more accurate.
-    if motionManager.isDeviceMotionAvailable {
-      motionManager.deviceMotionUpdateInterval = motionUpdateInterval
-      motionManager.startDeviceMotionUpdates(to: queue) { (motion, error) in
-        guard let motion = motion, error == nil else { return }
+  
+  func startMotionUpdates(isContinuos: Bool = true, handler: @escaping (BallMovementVector) -> Void) {
+    guard motionManager.isDeviceMotionAvailable else { return }
+    motionManager.startDeviceMotionUpdates()
+    // Configure a timer to fetch the motion data.
+    self.timer = Timer(fire: Date(), interval: motionUpdateInterval, repeats: isContinuos,
+                       block: { [weak self] (timer) in
+      
+      if let data = self?.motionManager.deviceMotion {
         
-        let multiplier = 1 / fabs(motion.gravity.z)
-        let ballMovementVector = BallMovementVector(dx: motion.gravity.x , dy: motion.gravity.y, speedMultiplier: multiplier)
+        let ballMovementVector = BallMovementVector(dx: data.gravity.x , dy: data.gravity.y)
         handler(ballMovementVector)
-        
       }
-    } else {
-      throw MotionServiceError.motionServiceUnavailable
-    }
+    })
+    
+    // Add the timer to the current run loop.
+    RunLoop.current.add(self.timer!, forMode: RunLoop.Mode.default)
   }
   
   func stopMotionUpdates() {

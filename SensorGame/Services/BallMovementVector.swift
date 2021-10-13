@@ -12,5 +12,4 @@ import UIKit
 struct BallMovementVector  {
   var dx: Double
   var dy: Double
-  var speedMultiplier: Double
 }

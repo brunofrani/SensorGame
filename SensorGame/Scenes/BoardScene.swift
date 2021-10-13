@@ -17,7 +17,6 @@ final class BoardScene: SKScene {
     super.init(size: size)
     boardView = BoardView(scene: self)
     boardView?.setupNodes()
-    
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -38,18 +37,12 @@ final class BoardScene: SKScene {
     backgroundColor = .white
     gameState = .initial
     
-    do {
-      try CoreMotionWrapper.singleton.startMotionUpdates { [weak self] motionData in
-        guard let strongSelf = self else { return }
-        strongSelf.boardView?.ballNode.physicsBody?.applyForce(
-          CGVector(
-            dx: motionData.dx * 8 ,
-            dy: motionData.dy * 8 ))
-      }
-    } catch {
-      // In case of an error end the game right away
-      gameState = .lost(message: "An error occoured with motion service")
-      
+    CoreMotionWrapper.singleton.startMotionUpdates { [weak self] motionData in
+      guard let strongSelf = self else { return }
+      strongSelf.boardView?.ballNode.physicsBody?.applyForce(
+        CGVector(
+          dx: motionData.dx * 8 ,
+          dy: motionData.dy * 8 ))
     }
   }
   
@@ -69,7 +62,7 @@ final class BoardScene: SKScene {
     finishScene.scaleMode = .aspectFill
     let transition = SKTransition.moveIn(with: .down, duration: 0.8)
     self.view?.presentScene(finishScene, transition: transition)
-  }  
+  }
 }
 
 
