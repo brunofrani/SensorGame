@@ -82,7 +82,7 @@ final class BoardView {
     scene.addChild(thirdInnerTile)
     
     
-    let firstHole = createHoleNode(name: "firstHole")
+    let firstHole = createHoleNode()
     firstHole.position = CGPoint(x: rightTile.frame.minX - (firstHole.frame.width / 2), y: scene.frame.height * 1 / 5)
     scene.addChild(firstHole)
     
